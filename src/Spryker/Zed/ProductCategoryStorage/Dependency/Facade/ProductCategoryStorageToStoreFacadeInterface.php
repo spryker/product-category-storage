@@ -7,12 +7,10 @@
 
 namespace Spryker\Zed\ProductCategoryStorage\Dependency\Facade;
 
-interface ProductCategoryStorageToCategoryInterface
+interface ProductCategoryStorageToStoreFacadeInterface
 {
     /**
-     * @param int $idCategory
-     *
-     * @return \Generated\Shared\Transfer\NodeTransfer[]
+     * @return \Generated\Shared\Transfer\StoreTransfer[]
      */
-    public function getAllNodesByIdCategory(int $idCategory): array;
+    public function getAllStores();
 }
