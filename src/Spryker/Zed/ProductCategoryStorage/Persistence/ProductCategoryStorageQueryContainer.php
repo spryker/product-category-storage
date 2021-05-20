@@ -11,6 +11,7 @@ use Orm\Zed\Category\Persistence\Map\SpyCategoryAttributeTableMap;
 use Orm\Zed\Category\Persistence\Map\SpyCategoryClosureTableTableMap;
 use Orm\Zed\Category\Persistence\Map\SpyCategoryNodeTableMap;
 use Orm\Zed\Category\Persistence\Map\SpyCategoryTableMap;
+use Orm\Zed\Category\Persistence\SpyCategoryNodeQuery;
 use Orm\Zed\ProductCategory\Persistence\Map\SpyProductCategoryTableMap;
 use Orm\Zed\ProductCategory\Persistence\SpyProductCategoryQuery;
 use Orm\Zed\Url\Persistence\Map\SpyUrlTableMap;
@@ -24,6 +25,9 @@ use Spryker\Zed\PropelOrm\Business\Runtime\ActiveQuery\Criteria;
 class ProductCategoryStorageQueryContainer extends AbstractQueryContainer implements ProductCategoryStorageQueryContainerInterface
 {
     public const FK_CATEGORY = 'fkCategory';
+
+    protected const COL_BOOSTED_DEPTH = 'boostedDepth';
+    protected const DEPTH_TO_BOOST = 0;
 
     /**
      * {@inheritDoc}
@@ -248,10 +252,11 @@ class ProductCategoryStorageQueryContainer extends AbstractQueryContainer implem
 
         $nodeQuery->where(SpyUrlTableMap::COL_FK_LOCALE . ' = ' . SpyCategoryAttributeTableMap::COL_FK_LOCALE);
 
+        $nodeQuery = $this->addOrderByDepthDescendantToCategoryNodeQuery($nodeQuery);
+
         $nodeQuery
             ->useClosureTableQuery()
             ->orderByFkCategoryNodeDescendant(Criteria::DESC)
-            ->orderByDepth(Criteria::DESC)
             ->filterByDepth(null, Criteria::NOT_EQUAL)
             ->endUse()
             ->useCategoryQuery()
@@ -314,5 +319,28 @@ class ProductCategoryStorageQueryContainer extends AbstractQueryContainer implem
             ->joinWithSpyCategory()
             ->joinWith('SpyCategory.Node')
             ->orderByProductOrder();
+    }
+
+    /**
+     * @param \Orm\Zed\Category\Persistence\SpyCategoryNodeQuery $categoryNodeQuery
+     *
+     * @return \Orm\Zed\Category\Persistence\SpyCategoryNodeQuery
+     */
+    protected function addOrderByDepthDescendantToCategoryNodeQuery(SpyCategoryNodeQuery $categoryNodeQuery): SpyCategoryNodeQuery
+    {
+        $depthToBoostClause = sprintf(
+            '(CASE WHEN %s = %s THEN 1 ELSE 0 END)',
+            SpyCategoryClosureTableTableMap::COL_DEPTH,
+            static::DEPTH_TO_BOOST
+        );
+
+        $categoryNodeQuery
+            ->withColumn($depthToBoostClause, static::COL_BOOSTED_DEPTH)
+            ->orderBy(static::COL_BOOSTED_DEPTH, Criteria::DESC)
+            ->useClosureTableQuery()
+                ->orderByDepth(Criteria::DESC)
+            ->endUse();
+
+        return $categoryNodeQuery;
     }
 }
