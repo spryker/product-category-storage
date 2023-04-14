@@ -12,10 +12,11 @@ interface ProductAbstractCategoryStorageReaderInterface
     /**
      * @param int $idProductAbstract
      * @param string $locale
+     * @param string $storeName
      *
      * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer|null
      */
-    public function findProductAbstractCategory($idProductAbstract, $locale);
+    public function findProductAbstractCategory($idProductAbstract, $locale, string $storeName);
 
     /**
      * @param int[] $productAbstractIds

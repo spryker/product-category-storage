@@ -7,6 +7,7 @@
 
 namespace Spryker\Client\ProductCategoryStorage\Storage;
 
+use Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer;
 use Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Client\Kernel\Locator;
@@ -28,24 +29,33 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
     protected $synchronizationService;
 
     /**
+     * @var array<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface>
+     */
+    protected $productAbstractCategoryStorageCollectionExpanderPlugins;
+
+    /**
      * @param \Spryker\Client\ProductCategoryStorage\Dependency\Client\ProductCategoryStorageToStorageClientInterface $storageClient
      * @param \Spryker\Client\ProductCategoryStorage\Dependency\Service\ProductCategoryStorageToSynchronizationServiceInterface $synchronizationService
+     * @param array<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface> $productAbstractCategoryStorageCollectionExpanderPlugins
      */
     public function __construct(
         ProductCategoryStorageToStorageClientInterface $storageClient,
-        ProductCategoryStorageToSynchronizationServiceInterface $synchronizationService
+        ProductCategoryStorageToSynchronizationServiceInterface $synchronizationService,
+        array $productAbstractCategoryStorageCollectionExpanderPlugins
     ) {
         $this->storageClient = $storageClient;
         $this->synchronizationService = $synchronizationService;
+        $this->productAbstractCategoryStorageCollectionExpanderPlugins = $productAbstractCategoryStorageCollectionExpanderPlugins;
     }
 
     /**
      * @param int $idProductAbstract
      * @param string $locale
+     * @param string $storeName
      *
      * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer|null
      */
-    public function findProductAbstractCategory($idProductAbstract, $locale)
+    public function findProductAbstractCategory($idProductAbstract, $locale, string $storeName)
     {
         $productAbstractCategoryStorageData = $this->findStorageData($idProductAbstract, $locale);
 
@@ -53,9 +63,20 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
             return null;
         }
 
-        $spyProductCategoryAbstractTransfer = new ProductAbstractCategoryStorageTransfer();
+        $productAbstractCategoryStorageTransfer = (new ProductAbstractCategoryStorageTransfer())->fromArray($productAbstractCategoryStorageData, true);
 
-        return $spyProductCategoryAbstractTransfer->fromArray($productAbstractCategoryStorageData, true);
+        $productAbstractCategoryStorageCollectionTransfer = (new ProductAbstractCategoryStorageCollectionTransfer())
+            ->addProductAbstractCategoryStorage($productAbstractCategoryStorageTransfer);
+
+        $productAbstractCategoryStorageCollectionTransfer = $this->executeProductAbstractCategoryStorageCollectionExpanderPlugins(
+            $productAbstractCategoryStorageCollectionTransfer,
+            $locale,
+            $storeName,
+        );
+
+        $productAbstractCategoryStorageTransfersData = $productAbstractCategoryStorageCollectionTransfer->getProductAbstractCategories()->getArrayCopy();
+
+        return array_pop($productAbstractCategoryStorageTransfersData);
     }
 
     /**
@@ -156,5 +177,28 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
         return $this->synchronizationService
             ->getStorageKeyBuilder(SharedProductCategoryStorageConfig::PRODUCT_ABSTRACT_CATEGORY_RESOURCE_NAME)
             ->generateKey($synchronizationDataTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer
+     * @param string $localeName
+     * @param string $storeName
+     *
+     * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer
+     */
+    protected function executeProductAbstractCategoryStorageCollectionExpanderPlugins(
+        ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer,
+        string $localeName,
+        string $storeName
+    ): ProductAbstractCategoryStorageCollectionTransfer {
+        foreach ($this->productAbstractCategoryStorageCollectionExpanderPlugins as $productAbstractCategoryStorageCollectionExpanderPlugin) {
+            $productAbstractCategoryStorageCollectionTransfer = $productAbstractCategoryStorageCollectionExpanderPlugin->expand(
+                $productAbstractCategoryStorageCollectionTransfer,
+                $localeName,
+                $storeName,
+            );
+        }
+
+        return $productAbstractCategoryStorageCollectionTransfer;
     }
 }

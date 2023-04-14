@@ -33,7 +33,7 @@ class ProductCategoryStorageClient extends AbstractClient implements ProductCate
 
         return $this->getFactory()
             ->createProductCategoryStorageReader()
-            ->findProductAbstractCategory($idProductAbstract, $locale);
+            ->findProductAbstractCategory($idProductAbstract, $locale, $storeName);
     }
 
     /**
@@ -56,5 +56,39 @@ class ProductCategoryStorageClient extends AbstractClient implements ProductCate
         return $this->getFactory()
             ->createProductCategoryStorageReader()
             ->findBulkProductAbstractCategory($productAbstractIds, $localeName);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param string $httpReferer
+     *
+     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     */
+    public function filterProductCategoriesByHttpReferer(array $productCategoryStorageTransfers, string $httpReferer): array
+    {
+        return $this->getFactory()
+            ->createProductCategoryStorageFilter()
+            ->filterProductCategoriesByHttpReferer($productCategoryStorageTransfers, $httpReferer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     *
+     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     */
+    public function sortProductCategories(array $productCategoryStorageTransfers): array
+    {
+        return $this->getFactory()
+            ->createProductCategoryStorageSorter()
+            ->sortProductCategories($productCategoryStorageTransfers);
     }
 }
