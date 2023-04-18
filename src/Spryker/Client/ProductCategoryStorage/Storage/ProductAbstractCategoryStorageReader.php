@@ -29,14 +29,14 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
     protected $synchronizationService;
 
     /**
-     * @var array<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface>
+     * @var list<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface>
      */
     protected $productAbstractCategoryStorageCollectionExpanderPlugins;
 
     /**
      * @param \Spryker\Client\ProductCategoryStorage\Dependency\Client\ProductCategoryStorageToStorageClientInterface $storageClient
      * @param \Spryker\Client\ProductCategoryStorage\Dependency\Service\ProductCategoryStorageToSynchronizationServiceInterface $synchronizationService
-     * @param array<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface> $productAbstractCategoryStorageCollectionExpanderPlugins
+     * @param list<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface> $productAbstractCategoryStorageCollectionExpanderPlugins
      */
     public function __construct(
         ProductCategoryStorageToStorageClientInterface $storageClient,
@@ -66,7 +66,7 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
         $productAbstractCategoryStorageTransfer = (new ProductAbstractCategoryStorageTransfer())->fromArray($productAbstractCategoryStorageData, true);
 
         $productAbstractCategoryStorageCollectionTransfer = (new ProductAbstractCategoryStorageCollectionTransfer())
-            ->addProductAbstractCategoryStorage($productAbstractCategoryStorageTransfer);
+            ->addProductAbstractCategory($productAbstractCategoryStorageTransfer);
 
         $productAbstractCategoryStorageCollectionTransfer = $this->executeProductAbstractCategoryStorageCollectionExpanderPlugins(
             $productAbstractCategoryStorageCollectionTransfer,
@@ -74,9 +74,9 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
             $storeName,
         );
 
-        $productAbstractCategoryStorageTransfersData = $productAbstractCategoryStorageCollectionTransfer->getProductAbstractCategories()->getArrayCopy();
+        $productAbstractCategoryStorageTransfers = $productAbstractCategoryStorageCollectionTransfer->getProductAbstractCategories()->getArrayCopy();
 
-        return array_pop($productAbstractCategoryStorageTransfersData);
+        return array_pop($productAbstractCategoryStorageTransfers);
     }
 
     /**

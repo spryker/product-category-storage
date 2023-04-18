@@ -10,10 +10,10 @@ namespace Spryker\Client\ProductCategoryStorage\Filter;
 interface ProductCategoryStorageFilterInterface
 {
     /**
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param string $httpReferer
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     public function filterProductCategoriesByHttpReferer(array $productCategoryStorageTransfers, string $httpReferer): array;
 }

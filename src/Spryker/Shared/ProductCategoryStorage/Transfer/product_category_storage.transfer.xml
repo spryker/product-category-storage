@@ -8,7 +8,7 @@
         <property name="categoryId" type="int"/>
         <property name="name" type="string"/>
         <property name="url" type="string"/>
-        <property name="parentCategoryIds" type="int[]" singular="parentCategoryIds" strict="true"/>
+        <property name="parentCategoryIds" type="int[]" singular="idParentCategory" strict="true"/>
     </transfer>
 
     <transfer name="ProductAbstractCategoryStorage">
@@ -26,7 +26,7 @@
     </transfer>
 
     <transfer name="ProductAbstractCategoryStorageCollection" strict="true">
-        <property name="productAbstractCategories" type="ProductAbstractCategoryStorage[]" singular="productAbstractCategoryStorage"/>
+        <property name="productAbstractCategories" type="ProductAbstractCategoryStorage[]" singular="productAbstractCategory"/>
     </transfer>
 
 </transfers>

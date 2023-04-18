@@ -82,7 +82,7 @@ class ProductCategoryStorageDependencyProvider extends AbstractDependencyProvide
     }
 
     /**
-     * @return array<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface>
+     * @return list<\Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface>
      */
     protected function getProductAbstractCategoryStorageCollectionExpanderPlugins(): array
     {

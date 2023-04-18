@@ -12,9 +12,9 @@ use Generated\Shared\Transfer\ProductCategoryStorageTransfer;
 class ProductCategoryStorageSorter implements ProductCategoryStorageSorterInterface
 {
     /**
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     public function sortProductCategories(array $productCategoryStorageTransfers): array
     {
@@ -50,11 +50,11 @@ class ProductCategoryStorageSorter implements ProductCategoryStorageSorterInterf
 
     /**
      * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $productCategoryStorageTransfer
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $sortedProductCategoryStorageTransfers
-     * @param array<int> $alreadySortedCategoryIds
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $sortedProductCategoryStorageTransfers
+     * @param list<int> $alreadySortedCategoryIds
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     protected function addParentProductCategoryStorageTransfer(
         ProductCategoryStorageTransfer $productCategoryStorageTransfer,
@@ -79,7 +79,7 @@ class ProductCategoryStorageSorter implements ProductCategoryStorageSorterInterf
     }
 
     /**
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $childProductCategoryStorageTransfer
      *
      * @return \Generated\Shared\Transfer\ProductCategoryStorageTransfer|null
@@ -99,10 +99,10 @@ class ProductCategoryStorageSorter implements ProductCategoryStorageSorterInterf
 
     /**
      * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $productCategoryStorageTransfer
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $sortedProductCategoryStorageTransfers
-     * @param array<int> $alreadySortedCategoryIds
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $sortedProductCategoryStorageTransfers
+     * @param list<int> $alreadySortedCategoryIds
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     protected function addSortedProductCategoryStorageTransfer(
         ProductCategoryStorageTransfer $productCategoryStorageTransfer,
@@ -119,11 +119,11 @@ class ProductCategoryStorageSorter implements ProductCategoryStorageSorterInterf
 
     /**
      * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $productCategoryStorageTransfer
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $sortedProductCategoryStorageTransfers
-     * @param array<int> $alreadySortedCategoryIds
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $sortedProductCategoryStorageTransfers
+     * @param list<int> $alreadySortedCategoryIds
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     protected function addChildProductCategoryStorageTransfer(
         ProductCategoryStorageTransfer $productCategoryStorageTransfer,
@@ -148,7 +148,7 @@ class ProductCategoryStorageSorter implements ProductCategoryStorageSorterInterf
     }
 
     /**
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $parentProductCategoryStorageTransfer
      *
      * @return \Generated\Shared\Transfer\ProductCategoryStorageTransfer|null

@@ -47,10 +47,10 @@ interface ProductCategoryStorageClientInterface
      *
      * @api
      *
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param string $httpReferer
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     public function filterProductCategoriesByHttpReferer(array $productCategoryStorageTransfers, string $httpReferer): array;
 
@@ -61,9 +61,9 @@ interface ProductCategoryStorageClientInterface
      *
      * @api
      *
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     public function sortProductCategories(array $productCategoryStorageTransfers): array;
 }

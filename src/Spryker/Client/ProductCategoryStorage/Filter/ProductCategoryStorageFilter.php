@@ -12,10 +12,10 @@ use Generated\Shared\Transfer\ProductCategoryStorageTransfer;
 class ProductCategoryStorageFilter implements ProductCategoryStorageFilterInterface
 {
     /**
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param string $httpReferer
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     public function filterProductCategoriesByHttpReferer(array $productCategoryStorageTransfers, string $httpReferer): array
     {
@@ -23,12 +23,12 @@ class ProductCategoryStorageFilter implements ProductCategoryStorageFilterInterf
     }
 
     /**
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param string $httpReferer
-     * @param array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $filteredProductCategoryStorageTransfers
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $filteredProductCategoryStorageTransfers
      * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer|null $relativeProductCategoryStorageTransfer
      *
-     * @return array<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
+     * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
     protected function filterProductCategoriesRecursive(
         array $productCategoryStorageTransfers,
