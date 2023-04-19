@@ -13,9 +13,10 @@ interface ProductCategoryStorageClientInterface
      * Specification:
      * - Returns Product Abstract Category by id.
      * - Forward compatibility (from next major): only product abstract categories assigned with passed $storeName will be returned.
-     * - Expands Product Abstract Category by {@link \Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface} plugin stack execution.
      *
      * @api
+     *
+     * @deprecated Use {@link \Spryker\Client\ProductCategoryStorage\ProductCategoryStorageClientInterface::findBulkProductAbstractCategory()} instead.
      *
      * @param int $idProductAbstract
      * @param string $locale
@@ -28,6 +29,7 @@ interface ProductCategoryStorageClientInterface
     /**
      * Specification:
      * - Returns Categories grouped by Product Abstract id.
+     * - Executes {@link \Spryker\Client\ProductCategoryStorageExtension\Dependency\Plugin\ProductAbstractCategoryStorageCollectionExpanderPluginInterface} plugins stack.
      * - Forward compatibility (from next major): only product abstract categories assigned with passed $storeName will be returned.
      *
      * @api

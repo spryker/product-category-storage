@@ -51,11 +51,10 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
     /**
      * @param int $idProductAbstract
      * @param string $locale
-     * @param string $storeName
      *
      * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer|null
      */
-    public function findProductAbstractCategory($idProductAbstract, $locale, string $storeName)
+    public function findProductAbstractCategory($idProductAbstract, $locale)
     {
         $productAbstractCategoryStorageData = $this->findStorageData($idProductAbstract, $locale);
 
@@ -63,29 +62,19 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
             return null;
         }
 
-        $productAbstractCategoryStorageTransfer = (new ProductAbstractCategoryStorageTransfer())->fromArray($productAbstractCategoryStorageData, true);
+        $spyProductCategoryAbstractTransfer = new ProductAbstractCategoryStorageTransfer();
 
-        $productAbstractCategoryStorageCollectionTransfer = (new ProductAbstractCategoryStorageCollectionTransfer())
-            ->addProductAbstractCategory($productAbstractCategoryStorageTransfer);
-
-        $productAbstractCategoryStorageCollectionTransfer = $this->executeProductAbstractCategoryStorageCollectionExpanderPlugins(
-            $productAbstractCategoryStorageCollectionTransfer,
-            $locale,
-            $storeName,
-        );
-
-        $productAbstractCategoryStorageTransfers = $productAbstractCategoryStorageCollectionTransfer->getProductAbstractCategories()->getArrayCopy();
-
-        return array_pop($productAbstractCategoryStorageTransfers);
+        return $spyProductCategoryAbstractTransfer->fromArray($productAbstractCategoryStorageData, true);
     }
 
     /**
      * @param int[] $productAbstractIds
      * @param string $localeName
+     * @param string $storeName
      *
      * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer[]
      */
-    public function findBulkProductAbstractCategory(array $productAbstractIds, string $localeName): array
+    public function findBulkProductAbstractCategory(array $productAbstractIds, string $localeName, string $storeName): array
     {
         $productAbstractCategoryStorageData = $this->findBulkStorageData($productAbstractIds, $localeName);
         $productAbstractCategoryStorageData = array_filter($productAbstractCategoryStorageData);
@@ -94,13 +83,19 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
             return [];
         }
 
-        $response = [];
+        $productAbstractCategoryStorageCollectionTransfer = new ProductAbstractCategoryStorageCollectionTransfer();
         foreach ($productAbstractCategoryStorageData as $item) {
-            $response[] = (new ProductAbstractCategoryStorageTransfer())
-                ->fromArray($item, true);
+            $productAbstractCategoryStorageTransfer = (new ProductAbstractCategoryStorageTransfer())->fromArray($item, true);
+            $productAbstractCategoryStorageCollectionTransfer->addProductAbstractCategory($productAbstractCategoryStorageTransfer);
         }
 
-        return $response;
+        $productAbstractCategoryStorageCollectionTransfer = $this->executeProductAbstractCategoryStorageCollectionExpanderPlugins(
+            $productAbstractCategoryStorageCollectionTransfer,
+            $localeName,
+            $storeName,
+        );
+
+        return $productAbstractCategoryStorageCollectionTransfer->getProductAbstractCategories()->getArrayCopy();
     }
 
     /**

@@ -19,6 +19,8 @@ class ProductCategoryStorageClient extends AbstractClient implements ProductCate
      *
      * @api
      *
+     * @deprecated Use {@link \Spryker\Client\ProductCategoryStorage\ProductCategoryStorageClient::findBulkProductAbstractCategory()} instead.
+     *
      * @param int $idProductAbstract
      * @param string $locale
      * @param string|null $storeName
@@ -33,7 +35,7 @@ class ProductCategoryStorageClient extends AbstractClient implements ProductCate
 
         return $this->getFactory()
             ->createProductCategoryStorageReader()
-            ->findProductAbstractCategory($idProductAbstract, $locale, $storeName);
+            ->findProductAbstractCategory($idProductAbstract, $locale);
     }
 
     /**
@@ -55,7 +57,7 @@ class ProductCategoryStorageClient extends AbstractClient implements ProductCate
 
         return $this->getFactory()
             ->createProductCategoryStorageReader()
-            ->findBulkProductAbstractCategory($productAbstractIds, $localeName);
+            ->findBulkProductAbstractCategory($productAbstractIds, $localeName, $storeName);
     }
 
 
