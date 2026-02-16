@@ -12,7 +12,7 @@ use Generated\Shared\Transfer\ProductCategoryStorageTransfer;
 class ProductCategoryStorageSorter implements ProductCategoryStorageSorterInterface
 {
     /**
-     * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
+     * @param list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      *
      * @return list<\Generated\Shared\Transfer\ProductCategoryStorageTransfer>
      */
