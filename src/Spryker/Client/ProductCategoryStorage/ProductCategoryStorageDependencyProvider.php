@@ -74,11 +74,6 @@ class ProductCategoryStorageDependencyProvider extends AbstractDependencyProvide
         return $container;
     }
 
-    /**
-     * @param \Spryker\Client\Kernel\Container $container
-     *
-     * @return \Spryker\Client\Kernel\Container
-     */
     protected function addProductAbstractCategoryStorageCollectionExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_PRODUCT_ABSTRACT_CATEGORY_STORAGE_COLLECTION_EXPANDER, function () {

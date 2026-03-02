@@ -37,9 +37,6 @@ class ProductCategoryStorageBusinessTester extends Actor
 {
     use _generated\ProductCategoryStorageBusinessTesterActions;
 
-    /**
-     * @return \Generated\Shared\Transfer\NodeTransfer
-     */
     public function getRootCategoryNode(): NodeTransfer
     {
         $categoryNodeEntity = SpyCategoryNodeQuery::create()
@@ -61,13 +58,6 @@ class ProductCategoryStorageBusinessTester extends Actor
             ->find();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductConcreteTransfer $productConcreteTransfer
-     * @param string $storeName
-     * @param array $storageData
-     *
-     * @return \Orm\Zed\ProductCategoryStorage\Persistence\SpyProductAbstractCategoryStorage
-     */
     public function haveProductAbstractCategoryStorageEntity(
         ProductConcreteTransfer $productConcreteTransfer,
         string $storeName,
@@ -95,9 +85,6 @@ class ProductCategoryStorageBusinessTester extends Actor
         return $productAbstractCategoryStorageEntity;
     }
 
-    /**
-     * @return void
-     */
     public function cleanStaticProperty(): void
     {
         $reflectedClass = new ReflectionClass(ProductCategoryStorageReader::class);
@@ -111,9 +98,6 @@ class ProductCategoryStorageBusinessTester extends Actor
         $property->setValue([]);
     }
 
-    /**
-     * @return \Orm\Zed\ProductCategoryStorage\Persistence\SpyProductAbstractCategoryStorageQuery
-     */
     protected function createProductAbstractCategoryStorageQuery(): SpyProductAbstractCategoryStorageQuery
     {
         return SpyProductAbstractCategoryStorageQuery::create();

@@ -46,12 +46,6 @@ class ProductCategoryMapper
         return $productCategoryTransfers;
     }
 
-    /**
-     * @param \Orm\Zed\ProductCategory\Persistence\SpyProductCategory $productCategoryEntity
-     * @param \Generated\Shared\Transfer\ProductCategoryTransfer $productCategoryTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductCategoryTransfer
-     */
     protected function mapProductCategoryEntityToProductCategoryTransfer(
         SpyProductCategory $productCategoryEntity,
         ProductCategoryTransfer $productCategoryTransfer
@@ -59,12 +53,6 @@ class ProductCategoryMapper
         return $productCategoryTransfer->fromArray($productCategoryEntity->toArray(), true);
     }
 
-    /**
-     * @param \Orm\Zed\Category\Persistence\SpyCategory $productCategoryEntity
-     * @param \Generated\Shared\Transfer\CategoryTransfer $categoryTransfer
-     *
-     * @return \Generated\Shared\Transfer\CategoryTransfer
-     */
     protected function mapCategoryEntityToCategoryTransfer(
         SpyCategory $productCategoryEntity,
         CategoryTransfer $categoryTransfer
@@ -81,12 +69,6 @@ class ProductCategoryMapper
         return $categoryTransfer;
     }
 
-    /**
-     * @param \Orm\Zed\Category\Persistence\SpyCategoryNode $categoryNodeEntity
-     * @param \Generated\Shared\Transfer\NodeTransfer $nodeTransfer
-     *
-     * @return \Generated\Shared\Transfer\NodeTransfer
-     */
     protected function mapCategoryNodeEntityToNodeTransfer(
         SpyCategoryNode $categoryNodeEntity,
         NodeTransfer $nodeTransfer

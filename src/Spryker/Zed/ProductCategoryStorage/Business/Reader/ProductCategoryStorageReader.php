@@ -24,9 +24,6 @@ class ProductCategoryStorageReader implements ProductCategoryStorageReaderInterf
      */
     protected static $categoryTree;
 
-    /**
-     * @param \Spryker\Zed\ProductCategoryStorage\Business\Builder\CategoryTreeBuilderInterface $categoryTreeBuilder
-     */
     public function __construct(CategoryTreeBuilderInterface $categoryTreeBuilder)
     {
         $this->categoryTreeBuilder = $categoryTreeBuilder;

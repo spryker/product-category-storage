@@ -92,9 +92,6 @@ class ProductCategoryStorageClientTest extends Unit
      */
     protected ProductCategoryStorageClientTester $tester;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -102,9 +99,6 @@ class ProductCategoryStorageClientTest extends Unit
         $this->tester->setDependency(StorageDependencyProvider::PLUGIN_STORAGE, new StorageRedisPlugin());
     }
 
-    /**
-     * @return void
-     */
     public function testFindInvalidProductAbstractCategoryReturnsNull(): void
     {
         // Act
@@ -115,9 +109,6 @@ class ProductCategoryStorageClientTest extends Unit
         $this->assertNull($returnValue);
     }
 
-    /**
-     * @return void
-     */
     public function testFindBulkProductAbstractCategoryReturnsEmptyArray(): void
     {
         // Act
@@ -128,9 +119,6 @@ class ProductCategoryStorageClientTest extends Unit
         $this->assertCount(0, $productAbstractCategoryStorageTransfers);
     }
 
-    /**
-     * @return void
-     */
     public function testFilterProductCategoriesByHttpRefererThrowsExceptionWhenUrlIsMissing(): void
     {
         // Arrange
@@ -411,17 +399,11 @@ class ProductCategoryStorageClientTest extends Unit
         ]))->build();
     }
 
-    /**
-     * @return \Spryker\Client\ProductCategoryStorage\ProductCategoryStorageClientInterface
-     */
     protected function createProductCategoryStorageClient(): ProductCategoryStorageClientInterface
     {
         return new ProductCategoryStorageClient();
     }
 
-    /**
-     * @return void
-     */
     public function testFilterProductCategoriesByHttpRefererExcludesNonMatchingUrlsWithSpecialCharacters(): void
     {
         // Arrange
@@ -441,9 +423,6 @@ class ProductCategoryStorageClientTest extends Unit
         $this->assertSame('/startseite/büromöbel', $result[0]->getUrl());
     }
 
-    /**
-     * @return void
-     */
     public function testFilterProductCategoriesByHttpRefererIncludesRelatedCategoriesWithSpecialCharacters(): void
     {
         // Arrange

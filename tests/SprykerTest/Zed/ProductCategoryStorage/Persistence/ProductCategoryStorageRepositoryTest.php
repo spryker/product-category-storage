@@ -33,9 +33,6 @@ class ProductCategoryStorageRepositoryTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetAllCategoryNodeAggregationsOrderedByDescendantWillReturnCategoriesInCorrectOrder(): void
     {
         // Arrange

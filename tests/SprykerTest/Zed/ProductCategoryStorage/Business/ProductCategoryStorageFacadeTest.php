@@ -84,9 +84,6 @@ class ProductCategoryStorageFacadeTest extends Unit
      */
     protected $categoryTransfer;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -115,9 +112,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -125,9 +119,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         $this->tester->cleanStaticProperty();
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryStorePublishingEvents(): void
     {
         // Arrange
@@ -152,9 +143,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryStorePublishingEventsWithFakeIdCategory(): void
     {
         // Arrange
@@ -179,9 +167,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testDeleteCollectionByCategoryStoreEvents(): void
     {
         // Arrange
@@ -208,9 +193,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryAttributeEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -236,9 +218,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryAttributeEventsWithFakeIdCategoryWillNotWriteStorageData(): void
     {
         // Arrange
@@ -264,9 +243,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryAttributeNameEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -296,9 +272,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryAttributeNameEventsWithoutModifiedNameColumnWillNotWriteStorageData(): void
     {
         // Arrange
@@ -325,9 +298,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryNodeEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -353,9 +323,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryNodeEventsWithFakeIdCategoryWillNotWriteStorageData(): void
     {
         // Arrange
@@ -381,9 +348,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -407,9 +371,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryEventsWithFakeIdCategoryWillNotWriteStorageData(): void
     {
         // Arrange
@@ -433,9 +394,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryIsActiveAndCategoryKeyEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -464,9 +422,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryIsActiveAndCategoryKeyEventsWithoutModifiedColumnsWillNotWriteStorageData(): void
     {
         // Arrange
@@ -490,9 +445,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryUrlEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -518,9 +470,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryUrlEventsWithFakeIdCategoryNodeWillNotWriteStorageData(): void
     {
         // Arrange
@@ -546,9 +495,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryUrlEventsWithEmptyCategoryNodeWillNotWriteStorageData(): void
     {
         // Arrange
@@ -570,9 +516,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryUrlAndResourceCategorynodeEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -603,9 +546,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryUrlAndResourceCategorynodeEventsWithoutModifiedColumnsWillNotWriteStorageData(): void
     {
         // Arrange
@@ -631,9 +571,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByProductCategoryPublishingEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -657,9 +594,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByProductCategoryPublishingEventsWithFakeIdProductAbstractWillNotWriteStorageData(): void
     {
         // Arrange
@@ -683,9 +617,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByProductCategoryEventsWillWriteStorageData(): void
     {
         // Arrange
@@ -711,9 +642,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByProductCategoryEventsWithFakeIdProductAbstractWillNotWriteStorageData(): void
     {
         // Arrange
@@ -737,9 +665,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testGetProductAbstractCategoryStorageSynchronizationDataTransfersByProductAbstractIdsWillReturnDataFilteredByIds(): void
     {
         // Arrange
@@ -771,9 +696,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         $this->assertSame([$idProductAbstract], $productAbstractIds, 'Synchronization data should be filtered by product abstract IDs.');
     }
 
-    /**
-     * @return void
-     */
     public function testGetProductAbstractCategoryStorageSynchronizationDataTransfersByProductAbstractIdsWillReturnDataByLimit(): void
     {
         // Arrange
@@ -800,9 +722,6 @@ class ProductCategoryStorageFacadeTest extends Unit
         $this->assertCount($expectedCount, $synchronizationDataTransfers, sprintf('Exactly %d product abstract categories should exist.', $expectedCount));
     }
 
-    /**
-     * @return void
-     */
     public function testGetProductCategoryTransfersByFilterWillReturnProductCategoryData(): void
     {
         // Arrange

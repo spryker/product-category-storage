@@ -28,17 +28,11 @@ class ProductCategoryStorageFactory extends AbstractFactory
         );
     }
 
-    /**
-     * @return \Spryker\Client\ProductCategoryStorage\Filter\ProductCategoryStorageFilterInterface
-     */
     public function createProductCategoryStorageFilter(): ProductCategoryStorageFilterInterface
     {
         return new ProductCategoryStorageFilter();
     }
 
-    /**
-     * @return \Spryker\Client\ProductCategoryStorage\Sorter\ProductCategoryStorageSorterInterface
-     */
     public function createProductCategoryStorageSorter(): ProductCategoryStorageSorterInterface
     {
         return new ProductCategoryStorageSorter();

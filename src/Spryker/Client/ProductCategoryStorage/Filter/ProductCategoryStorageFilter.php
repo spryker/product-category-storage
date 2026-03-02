@@ -57,13 +57,6 @@ class ProductCategoryStorageFilter implements ProductCategoryStorageFilterInterf
         return $filteredProductCategoryStorageTransfers;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $productCategoryStorageTransfer
-     * @param string $httpReferer
-     * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer|null $relativeProductCategoryStorageTransfer
-     *
-     * @return bool
-     */
     protected function isCategoryApplicableForFiltering(
         ProductCategoryStorageTransfer $productCategoryStorageTransfer,
         string $httpReferer,
@@ -83,12 +76,6 @@ class ProductCategoryStorageFilter implements ProductCategoryStorageFilterInterf
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $productCategoryStorageTransfer
-     * @param \Generated\Shared\Transfer\ProductCategoryStorageTransfer $relativeProductCategoryStorageTransfer
-     *
-     * @return bool
-     */
     protected function isRelativeCategory(
         ProductCategoryStorageTransfer $productCategoryStorageTransfer,
         ProductCategoryStorageTransfer $relativeProductCategoryStorageTransfer

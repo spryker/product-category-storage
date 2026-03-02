@@ -11,13 +11,6 @@ use Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer;
 
 interface ProductAbstractCategoryStorageReaderInterface
 {
-    /**
-     * @param int $idProductAbstract
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer|null
-     */
     public function findProductAbstractCategory(
         int $idProductAbstract,
         string $localeName,

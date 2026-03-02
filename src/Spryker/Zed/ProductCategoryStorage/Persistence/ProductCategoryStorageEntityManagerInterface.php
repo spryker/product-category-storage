@@ -18,27 +18,12 @@ interface ProductCategoryStorageEntityManagerInterface
      */
     public function deleteProductAbstractCategoryStorages(array $productAbstractIds): void;
 
-    /**
-     * @param int $idProductAbstract
-     * @param string $storeName
-     * @param string $localeName
-     *
-     * @return void
-     */
     public function deleteProductAbstractCategoryStorage(
         int $idProductAbstract,
         string $storeName,
         string $localeName
     ): void;
 
-    /**
-     * @param int $idProductAbstract
-     * @param string $storeName
-     * @param string $localeName
-     * @param \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer $productAbstractCategoryStorageTransfer
-     *
-     * @return void
-     */
     public function saveProductAbstractCategoryStorage(
         int $idProductAbstract,
         string $storeName,
@@ -46,8 +31,5 @@ interface ProductCategoryStorageEntityManagerInterface
         ProductAbstractCategoryStorageTransfer $productAbstractCategoryStorageTransfer
     ): void;
 
-    /**
-     * @return bool
-     */
     public function commit(): bool;
 }

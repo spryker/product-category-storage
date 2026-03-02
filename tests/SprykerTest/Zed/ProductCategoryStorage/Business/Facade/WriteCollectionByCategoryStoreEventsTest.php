@@ -65,9 +65,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
      */
     protected ProductCategoryStorageBusinessTester $tester;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -80,9 +77,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
         });
     }
 
-    /**
-     * @return void
-     */
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -90,9 +84,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
         $this->tester->cleanStaticProperty();
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryStoreEvents(): void
     {
         $this->markTestSkipped('Debugging and refactoring requires.');
@@ -123,9 +114,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryStoreEventsWithFakeIdCategory(): void
     {
         // Arrange
@@ -153,9 +141,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryStoreEventsWithOneStoreRelation(): void
     {
         // Arrange
@@ -185,9 +170,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryStoreEventsWithTwoStoreRelations(): void
     {
         // Arrange
@@ -226,9 +208,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testWriteCollectionByCategoryStoreEventsWithoutStoreRelation(): void
     {
         // Arrange
@@ -263,9 +242,6 @@ class WriteCollectionByCategoryStoreEventsTest extends Unit
         );
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\CategoryTransfer
-     */
     protected function getCategoryTransfer(): CategoryTransfer
     {
         $storeTransfer = $this->tester->haveStore(

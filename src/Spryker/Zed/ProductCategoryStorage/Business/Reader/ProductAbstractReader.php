@@ -22,10 +22,6 @@ class ProductAbstractReader implements ProductAbstractReaderInterface
      */
     protected $productCategoryStorageRepository;
 
-    /**
-     * @param \Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToCategoryInterface $categoryFacade
-     * @param \Spryker\Zed\ProductCategoryStorage\Persistence\ProductCategoryStorageRepositoryInterface $productCategoryStorageRepository
-     */
     public function __construct(
         ProductCategoryStorageToCategoryInterface $categoryFacade,
         ProductCategoryStorageRepositoryInterface $productCategoryStorageRepository

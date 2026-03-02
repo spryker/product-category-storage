@@ -34,9 +34,6 @@ class ProductCategoryStoragePersistenceTester extends Actor
 {
     use _generated\ProductCategoryStoragePersistenceTesterActions;
 
-    /**
-     * @return \Generated\Shared\Transfer\NodeTransfer
-     */
     public function getRootCategoryNode(): NodeTransfer
     {
         $categoryNodeEntity = SpyCategoryNodeQuery::create()
@@ -46,12 +43,6 @@ class ProductCategoryStoragePersistenceTester extends Actor
         return (new NodeTransfer())->fromArray($categoryNodeEntity->toArray(), true);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\NodeTransfer $parentNodeTransfer
-     * @param \Generated\Shared\Transfer\StoreTransfer $storeTransfer
-     *
-     * @return \Generated\Shared\Transfer\CategoryTransfer
-     */
     public function haveLocalizedCategoryTransferWithStoreRelation(NodeTransfer $parentNodeTransfer, StoreTransfer $storeTransfer): CategoryTransfer
     {
         $categoryTransfer = $this->haveLocalizedCategory([

@@ -54,14 +54,6 @@ class ProductCategoryStorageWriter implements ProductCategoryStorageWriterInterf
      */
     protected $productCategoryStorageConfig;
 
-    /**
-     * @param \Spryker\Zed\ProductCategoryStorage\Persistence\ProductCategoryStorageRepositoryInterface $productCategoryStorageRepository
-     * @param \Spryker\Zed\ProductCategoryStorage\Persistence\ProductCategoryStorageEntityManagerInterface $productCategoryStorageEntityManager
-     * @param \Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToStoreFacadeInterface $storeFacade
-     * @param \Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductAbstractReaderInterface $productAbstractReader
-     * @param \Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductCategoryStorageReaderInterface $productCategoryStorageReader
-     * @param \Spryker\Zed\ProductCategoryStorage\ProductCategoryStorageConfig $productCategoryStorageConfig
-     */
     public function __construct(
         ProductCategoryStorageRepositoryInterface $productCategoryStorageRepository,
         ProductCategoryStorageEntityManagerInterface $productCategoryStorageEntityManager,

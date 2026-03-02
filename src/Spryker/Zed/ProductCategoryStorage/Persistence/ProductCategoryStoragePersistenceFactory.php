@@ -43,73 +43,46 @@ class ProductCategoryStoragePersistenceFactory extends AbstractPersistenceFactor
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::QUERY_CONTAINER_CATEGORY);
     }
 
-    /**
-     * @return \Orm\Zed\ProductCategoryStorage\Persistence\SpyProductAbstractCategoryStorageQuery
-     */
     public function createProductAbstractCategoryStoragePropelQuery(): SpyProductAbstractCategoryStorageQuery
     {
         return SpyProductAbstractCategoryStorageQuery::create();
     }
 
-    /**
-     * @return \Orm\Zed\Category\Persistence\SpyCategoryNodeQuery
-     */
     public function getCategoryNodePropelQuery(): SpyCategoryNodeQuery
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::PROPEL_QUERY_CATEGORY_NODE);
     }
 
-    /**
-     * @return \Orm\Zed\Category\Persistence\SpyCategoryClosureTableQuery
-     */
     public function getCategoryClosureTablePropelQuery(): SpyCategoryClosureTableQuery
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::PROPEL_QUERY_CATEGORY_CLOSURE_TABLE);
     }
 
-    /**
-     * @return \Orm\Zed\Product\Persistence\SpyProductAbstractLocalizedAttributesQuery
-     */
     public function getProductAbstractLocalizedAttributesPropelQuery(): SpyProductAbstractLocalizedAttributesQuery
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::PROPEL_QUERY_PRODUCT_ABSTRACT_LOCALIZED_ATTRIBUTES);
     }
 
-    /**
-     * @return \Orm\Zed\ProductCategory\Persistence\SpyProductCategoryQuery
-     */
     public function getProductCategoryPropelQuery(): SpyProductCategoryQuery
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::PROPEL_QUERY_PRODUCT_CATEGORY);
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Persistence\Propel\Mapper\ProductCategoryStorageMapper
-     */
     public function createProductCategoryStorageMapper(): ProductCategoryStorageMapper
     {
         return new ProductCategoryStorageMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Persistence\Propel\Mapper\ProductCategoryMapper
-     */
     public function createProductCategoryMapper(): ProductCategoryMapper
     {
         return new ProductCategoryMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Persistence\Propel\Mapper\ProductAbstractLocalizedAttributesMapper
-     */
     public function createProductAbstractLocalizedAttributesMapper(): ProductAbstractLocalizedAttributesMapper
     {
         return new ProductAbstractLocalizedAttributesMapper();
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Persistence\Propel\Mapper\CategoryNodeMapper
-     */
     public function createCategoryNodeMapper(): CategoryNodeMapper
     {
         return new CategoryNodeMapper();

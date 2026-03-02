@@ -38,13 +38,6 @@ class ProductCategoryStorageEntityManager extends AbstractEntityManager implemen
         $productAbstractCategoryStorageCollection->delete();
     }
 
-    /**
-     * @param int $idProductAbstract
-     * @param string $storeName
-     * @param string $localeName
-     *
-     * @return void
-     */
     public function deleteProductAbstractCategoryStorage(int $idProductAbstract, string $storeName, string $localeName): void
     {
         $productAbstractCategoryStorageEntity = $this->getFactory()
@@ -60,14 +53,6 @@ class ProductCategoryStorageEntityManager extends AbstractEntityManager implemen
         $this->remove($productAbstractCategoryStorageEntity);
     }
 
-    /**
-     * @param int $idProductAbstract
-     * @param string $storeName
-     * @param string $localeName
-     * @param \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer $productAbstractCategoryStorageTransfer
-     *
-     * @return void
-     */
     public function saveProductAbstractCategoryStorage(
         int $idProductAbstract,
         string $storeName,

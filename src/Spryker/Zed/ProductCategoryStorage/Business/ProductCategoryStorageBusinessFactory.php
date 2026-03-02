@@ -43,9 +43,6 @@ use Spryker\Zed\ProductCategoryStorage\ProductCategoryStorageDependencyProvider;
  */
 class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Writer\ProductCategoryStorageWriterInterface
-     */
     public function createProductCategoryStorageWriter(): ProductCategoryStorageWriterInterface
     {
         return new ProductCategoryStorageWriter(
@@ -58,9 +55,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Deleter\ProductCategoryStorageDeleterInterface
-     */
     public function createProductCategoryStorageDeleter(): ProductCategoryStorageDeleterInterface
     {
         return new ProductCategoryStorageDeleter(
@@ -70,9 +64,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductAbstractReaderInterface
-     */
     public function createProductAbstractReader(): ProductAbstractReaderInterface
     {
         return new ProductAbstractReader(
@@ -81,9 +72,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductCategoryStorageReaderInterface
-     */
     public function createProductCategoryStorageReader(): ProductCategoryStorageReaderInterface
     {
         return new ProductCategoryStorageReader(
@@ -91,9 +79,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Builder\CategoryTreeBuilderInterface
-     */
     public function createCategoryTreeBuilder(): CategoryTreeBuilderInterface
     {
         return new CategoryTreeBuilder(
@@ -101,33 +86,21 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToCategoryInterface
-     */
     public function getCategoryFacade(): ProductCategoryStorageToCategoryInterface
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::FACADE_CATEGORY);
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToStoreFacadeInterface
-     */
     public function getStoreFacade(): ProductCategoryStorageToStoreFacadeInterface
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::FACADE_STORE);
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToEventBehaviorFacadeInterface
-     */
     public function getEventBehaviorFacade(): ProductCategoryStorageToEventBehaviorFacadeInterface
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::FACADE_EVENT_BEHAVIOR);
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Writer\Category\ProductCategoryStorageByCategoryEventsWriterInterface
-     */
     public function createProductCategoryStorageByCategoryEventsWriter(): ProductCategoryStorageByCategoryEventsWriterInterface
     {
         return new ProductCategoryStorageByCategoryEventsWriter(
@@ -136,9 +109,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Writer\CategoryStore\ProductCategoryStorageByCategoryStoreEventsWriterInterface
-     */
     public function createProductCategoryStorageByCategoryStoreEventsWriter(): ProductCategoryStorageByCategoryStoreEventsWriterInterface
     {
         return new ProductCategoryStorageByCategoryStoreEventsWriter(
@@ -148,9 +118,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Writer\CategoryAttribute\ProductCategoryStorageByCategoryAttributeEventsWriterInterface
-     */
     public function createProductCategoryStorageByCategoryAttributeEventsWriter(): ProductCategoryStorageByCategoryAttributeEventsWriterInterface
     {
         return new ProductCategoryStorageByCategoryAttributeEventsWriter(
@@ -159,9 +126,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Writer\CategoryNode\ProductCategoryStorageByCategoryNodeEventsWriterInterface
-     */
     public function createProductCategoryStorageByCategoryNodeEventsWriter(): ProductCategoryStorageByCategoryNodeEventsWriterInterface
     {
         return new ProductCategoryStorageByCategoryNodeEventsWriter(
@@ -170,9 +134,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Writer\CategoryUrl\ProductCategoryStorageByCategoryUrlEventsWriterInterface
-     */
     public function createProductCategoryStorageByCategoryUrlEventsWriter(): ProductCategoryStorageByCategoryUrlEventsWriterInterface
     {
         return new ProductCategoryStorageByCategoryUrlEventsWriter(
@@ -182,9 +143,6 @@ class ProductCategoryStorageBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\ProductCategoryStorage\Business\Writer\ProductCategory\ProductCategoryStorageByProductCategoryEventsWriterInterface
-     */
     public function createProductCategoryStorageByProductCategoryEventsWriter(): ProductCategoryStorageByProductCategoryEventsWriterInterface
     {
         return new ProductCategoryStorageByProductCategoryEventsWriter(

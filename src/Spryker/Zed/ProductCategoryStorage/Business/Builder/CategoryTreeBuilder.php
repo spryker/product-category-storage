@@ -16,9 +16,6 @@ class CategoryTreeBuilder implements CategoryTreeBuilderInterface
      */
     protected $productCategoryStorageRepository;
 
-    /**
-     * @param \Spryker\Zed\ProductCategoryStorage\Persistence\ProductCategoryStorageRepositoryInterface $productCategoryStorageRepository
-     */
     public function __construct(ProductCategoryStorageRepositoryInterface $productCategoryStorageRepository)
     {
         $this->productCategoryStorageRepository = $productCategoryStorageRepository;

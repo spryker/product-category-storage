@@ -48,13 +48,6 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
         $this->productAbstractCategoryStorageCollectionExpanderPlugins = $productAbstractCategoryStorageCollectionExpanderPlugins;
     }
 
-    /**
-     * @param int $idProductAbstract
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer|null
-     */
     public function findProductAbstractCategory(
         int $idProductAbstract,
         string $localeName,
@@ -163,13 +156,6 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
         return $decodedProductAbstractCategoryStorageData;
     }
 
-    /**
-     * @param string $idProductAbstract
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return string
-     */
     protected function generateKey(string $idProductAbstract, string $localeName, string $storeName): string
     {
         $synchronizationDataTransfer = new SynchronizationDataTransfer();
@@ -183,13 +169,6 @@ class ProductAbstractCategoryStorageReader implements ProductAbstractCategorySto
             ->generateKey($synchronizationDataTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer
-     * @param string $localeName
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractCategoryStorageCollectionTransfer
-     */
     protected function executeProductAbstractCategoryStorageCollectionExpanderPlugins(
         ProductAbstractCategoryStorageCollectionTransfer $productAbstractCategoryStorageCollectionTransfer,
         string $localeName,

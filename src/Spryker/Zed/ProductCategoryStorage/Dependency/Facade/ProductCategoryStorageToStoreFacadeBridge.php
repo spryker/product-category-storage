@@ -32,11 +32,6 @@ class ProductCategoryStorageToStoreFacadeBridge implements ProductCategoryStorag
         return $this->storeFacade->getAllStores();
     }
 
-    /**
-     * @param bool $fallbackToDefault
-     *
-     * @return \Generated\Shared\Transfer\StoreTransfer
-     */
     public function getCurrentStore(bool $fallbackToDefault = false): StoreTransfer
     {
         return $this->storeFacade->getCurrentStore($fallbackToDefault);

@@ -28,11 +28,6 @@ class ProductCategoryStorageDeleter implements ProductCategoryStorageDeleterInte
      */
     protected $productAbstractReader;
 
-    /**
-     * @param \Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade
-     * @param \Spryker\Zed\ProductCategoryStorage\Persistence\ProductCategoryStorageEntityManagerInterface $productCategoryStorageEntityManager
-     * @param \Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductAbstractReaderInterface $productAbstractReader
-     */
     public function __construct(
         ProductCategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade,
         ProductCategoryStorageEntityManagerInterface $productCategoryStorageEntityManager,

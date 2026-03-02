@@ -35,11 +35,6 @@ class ProductCategoryStorageToCategoryBridge implements ProductCategoryStorageTo
         return $this->categoryFacade->getAllNodesByIdCategory($idCategory);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer
-     *
-     * @return \Generated\Shared\Transfer\NodeCollectionTransfer
-     */
     public function getCategoryNodes(CategoryNodeCriteriaTransfer $categoryNodeCriteriaTransfer): NodeCollectionTransfer
     {
         return $this->categoryFacade->getCategoryNodes($categoryNodeCriteriaTransfer);

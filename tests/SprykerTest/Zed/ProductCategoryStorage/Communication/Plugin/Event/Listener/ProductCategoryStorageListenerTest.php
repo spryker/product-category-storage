@@ -61,9 +61,6 @@ class ProductCategoryStorageListenerTest extends Unit
      */
     protected static $categoryNodeId;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -95,9 +92,6 @@ class ProductCategoryStorageListenerTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         parent::tearDown();
@@ -106,9 +100,6 @@ class ProductCategoryStorageListenerTest extends Unit
         $this->clearReaderCache();
     }
 
-    /**
-     * @return void
-     */
     public function testProductCategoryPublishStorageListenerStoreData(): void
     {
         // Assign
@@ -124,9 +115,6 @@ class ProductCategoryStorageListenerTest extends Unit
         $this->assertProductCategoryDatabaseEntriesAreCorrect();
     }
 
-    /**
-     * @return void
-     */
     public function testProductCategoryStorageListenerStoreData(): void
     {
         // Assign
@@ -144,9 +132,6 @@ class ProductCategoryStorageListenerTest extends Unit
         $this->assertProductCategoryDatabaseEntriesAreCorrect();
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryNodeStorageListenerStoreData(): void
     {
         // Assign
@@ -164,9 +149,6 @@ class ProductCategoryStorageListenerTest extends Unit
         $this->assertProductCategoryDatabaseEntriesAreCorrect();
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryUrlStorageListenerStoreData(): void
     {
         // Assign
@@ -187,9 +169,6 @@ class ProductCategoryStorageListenerTest extends Unit
         $this->assertProductCategoryDatabaseEntriesAreCorrect();
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryAttributeStorageListenerStoreData(): void
     {
         // Assign
@@ -210,9 +189,6 @@ class ProductCategoryStorageListenerTest extends Unit
         $this->assertProductCategoryDatabaseEntriesAreCorrect();
     }
 
-    /**
-     * @return void
-     */
     public function testCategoryStorageListenerStoreData(): void
     {
         // Assign
@@ -231,9 +207,6 @@ class ProductCategoryStorageListenerTest extends Unit
         $this->assertProductCategoryDatabaseEntriesAreCorrect();
     }
 
-    /**
-     * @return void
-     */
     protected function assertProductCategoryDatabaseEntriesAreCorrect(): void
     {
         $spyProductAbstractCategoryStorage = SpyProductAbstractCategoryStorageQuery::create()
@@ -269,18 +242,12 @@ class ProductCategoryStorageListenerTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     protected function removeEntryFromProductAbstractCategoryStorageTable(): void
     {
         SpyProductAbstractCategoryStorageQuery::create()
             ->filterByFkProductAbstract(static::$productCategoryTransfer->getFkProductAbstract())->delete();
     }
 
-    /**
-     * @return void
-     */
     protected function clearReaderCache(): void
     {
         $reflection = new ReflectionClass(ProductCategoryStorageReader::class);

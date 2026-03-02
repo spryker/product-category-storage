@@ -29,11 +29,6 @@ class ProductCategoryStorageByCategoryStoreEventsWriter implements ProductCatego
      */
     protected $productCategoryStorageWriter;
 
-    /**
-     * @param \Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade
-     * @param \Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductAbstractReaderInterface $productAbstractReader
-     * @param \Spryker\Zed\ProductCategoryStorage\Business\Writer\ProductCategoryStorageWriterInterface $productCategoryStorageWriter
-     */
     public function __construct(
         ProductCategoryStorageToEventBehaviorFacadeInterface $eventBehaviorFacade,
         ProductAbstractReaderInterface $productAbstractReader,

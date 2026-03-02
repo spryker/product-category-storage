@@ -43,12 +43,6 @@ class ProductAbstractLocalizedAttributesMapper
         return $productAbstractLocalizedAttributesTransfers;
     }
 
-    /**
-     * @param \Orm\Zed\Product\Persistence\SpyProductAbstractLocalizedAttributes $productAbstractLocalizedAttributesEntity
-     * @param \Generated\Shared\Transfer\ProductAbstractLocalizedAttributesTransfer $productAbstractLocalizedAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductAbstractLocalizedAttributesTransfer
-     */
     protected function mapProductAbstractLocalizedAttributesEntityToTransfer(
         SpyProductAbstractLocalizedAttributes $productAbstractLocalizedAttributesEntity,
         ProductAbstractLocalizedAttributesTransfer $productAbstractLocalizedAttributesTransfer
@@ -58,12 +52,6 @@ class ProductAbstractLocalizedAttributesMapper
             ->setIdProductAbstract($productAbstractLocalizedAttributesEntity->getFkProductAbstract());
     }
 
-    /**
-     * @param \Orm\Zed\Locale\Persistence\SpyLocale $localeEntity
-     * @param \Generated\Shared\Transfer\LocaleTransfer $localeTransfer
-     *
-     * @return \Generated\Shared\Transfer\LocaleTransfer
-     */
     protected function mapLocaleEntityToLocaleTransfer(
         SpyLocale $localeEntity,
         LocaleTransfer $localeTransfer

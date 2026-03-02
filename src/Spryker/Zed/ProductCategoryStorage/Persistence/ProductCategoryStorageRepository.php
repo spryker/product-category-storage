@@ -274,13 +274,6 @@ class ProductCategoryStorageRepository extends AbstractRepository implements Pro
             ->mapProductCategoryEntitiesToProductCategoryTransfers($productCategoryEnteties, []);
     }
 
-    /**
-     * @param int $offset
-     * @param int $limit
-     * @param string $orderByColumnName
-     *
-     * @return \Generated\Shared\Transfer\FilterTransfer
-     */
     protected function createFilterTransfer(int $offset, int $limit, string $orderByColumnName): FilterTransfer
     {
         return (new FilterTransfer())
@@ -289,11 +282,6 @@ class ProductCategoryStorageRepository extends AbstractRepository implements Pro
             ->setLimit($limit);
     }
 
-    /**
-     * @param \Orm\Zed\Category\Persistence\SpyCategoryNodeQuery $categoryNodeQuery
-     *
-     * @return \Orm\Zed\Category\Persistence\SpyCategoryNodeQuery
-     */
     protected function addOrderByDepthDescendantToCategoryNodeQuery(SpyCategoryNodeQuery $categoryNodeQuery): SpyCategoryNodeQuery
     {
         $depthToBoostClause = sprintf(
