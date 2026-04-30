@@ -13,6 +13,7 @@ use Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer;
 use Orm\Zed\Category\Persistence\Map\SpyCategoryAttributeTableMap;
 use Orm\Zed\Category\Persistence\Map\SpyCategoryNodeTableMap;
 use Orm\Zed\Category\Persistence\Map\SpyCategoryTableMap;
+use Orm\Zed\Product\Persistence\SpyProductAbstractLocalizedAttributesQuery;
 use Orm\Zed\ProductCategory\Persistence\Map\SpyProductCategoryTableMap;
 use Orm\Zed\ProductCategoryStorage\Persistence\SpyProductAbstractCategoryStorageQuery;
 use Orm\Zed\Url\Persistence\Map\SpyUrlTableMap;
@@ -205,6 +206,45 @@ class ProductCategoryStorageListenerTest extends Unit
 
         // Assert
         $this->assertProductCategoryDatabaseEntriesAreCorrect();
+    }
+
+    public function testProductCategoryPublishStorageListenerDeletesStorageWhenNoLocalizedEntitiesExist(): void
+    {
+        // Arrange
+        $idProductAbstract = static::$productCategoryTransfer->getFkProductAbstract();
+        $productCategoryPublishStorageListener = new ProductCategoryPublishStorageListener();
+
+        $productCategoryPublishStorageListener->handleBulk(
+            [(new EventEntityTransfer())->setId($idProductAbstract)],
+            ProductCategoryEvents::PRODUCT_CATEGORY_PUBLISH,
+        );
+
+        $this->assertGreaterThan(
+            0,
+            SpyProductAbstractCategoryStorageQuery::create()
+                ->filterByFkProductAbstract($idProductAbstract)
+                ->count(),
+            'Pre-condition: storage record must exist before publish with no localized entities.',
+        );
+
+        SpyProductAbstractLocalizedAttributesQuery::create()
+            ->filterByFkProductAbstract($idProductAbstract)
+            ->delete();
+
+        // Act
+        $productCategoryPublishStorageListener->handleBulk(
+            [(new EventEntityTransfer())->setId($idProductAbstract)],
+            ProductCategoryEvents::PRODUCT_CATEGORY_PUBLISH,
+        );
+
+        // Assert
+        $this->assertSame(
+            0,
+            SpyProductAbstractCategoryStorageQuery::create()
+                ->filterByFkProductAbstract($idProductAbstract)
+                ->count(),
+            'Storage record must be deleted when publish is called with no localized entities.',
+        );
     }
 
     protected function assertProductCategoryDatabaseEntriesAreCorrect(): void

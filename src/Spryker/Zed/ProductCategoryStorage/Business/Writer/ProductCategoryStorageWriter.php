@@ -235,6 +235,8 @@ class ProductCategoryStorageWriter implements ProductCategoryStorageWriterInterf
                 $this->removeLocalizedProductAbstractCategoryStorages($relatedToStoreTransfers, $idProductAbstract, $storeName);
             }
         }
+
+        $this->productCategoryStorageEntityManager->commit();
     }
 
     /**
