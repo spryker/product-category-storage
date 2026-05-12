@@ -31,5 +31,12 @@ interface ProductCategoryStorageEntityManagerInterface
         ProductAbstractCategoryStorageTransfer $productAbstractCategoryStorageTransfer
     ): void;
 
+    /**
+     * @param array<int, array<string, array<string, \Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer>>> $productAbstractCategoryStorageMap
+     *
+     * @return void
+     */
+    public function saveProductAbstractCategoryStorageCollection(array $productAbstractCategoryStorageMap): void;
+
     public function commit(): bool;
 }

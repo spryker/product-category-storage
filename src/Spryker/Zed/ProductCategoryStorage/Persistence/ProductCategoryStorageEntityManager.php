@@ -8,6 +8,7 @@
 namespace Spryker\Zed\ProductCategoryStorage\Persistence;
 
 use Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer;
+use Orm\Zed\ProductCategoryStorage\Persistence\SpyProductAbstractCategoryStorage;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 use Spryker\Zed\Propel\Persistence\BatchProcessor\ActiveRecordBatchProcessorTrait;
 
@@ -68,5 +69,53 @@ class ProductCategoryStorageEntityManager extends AbstractEntityManager implemen
 
         $productAbstractCategoryStorageEntity->setData($productAbstractCategoryStorageTransfer->toArray());
         $this->persist($productAbstractCategoryStorageEntity);
+    }
+
+    public function saveProductAbstractCategoryStorageCollection(array $productAbstractCategoryStorageMap): void
+    {
+        if ($productAbstractCategoryStorageMap === []) {
+            return;
+        }
+
+        $existingEntitiesMap = $this->getExistingProductAbstractCategoryStorageEntityMap(array_keys($productAbstractCategoryStorageMap));
+
+        foreach ($productAbstractCategoryStorageMap as $idProductAbstract => $storeMap) {
+            foreach ($storeMap as $storeName => $localeMap) {
+                foreach ($localeMap as $localeName => $productAbstractCategoryStorageTransfer) {
+                    $entity = $existingEntitiesMap[$idProductAbstract][$storeName][$localeName] ?? null;
+
+                    if ($entity === null) {
+                        $entity = new SpyProductAbstractCategoryStorage();
+                        $entity->setFkProductAbstract($idProductAbstract);
+                        $entity->setStore($storeName);
+                        $entity->setLocale($localeName);
+                    }
+
+                    $entity->setData($productAbstractCategoryStorageTransfer->toArray());
+                    $this->persist($entity);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param array<int> $productAbstractIds
+     *
+     * @return array<int, array<string, array<string, \Orm\Zed\ProductCategoryStorage\Persistence\SpyProductAbstractCategoryStorage>>>
+     */
+    protected function getExistingProductAbstractCategoryStorageEntityMap(array $productAbstractIds): array
+    {
+        $entities = $this->getFactory()
+            ->createProductAbstractCategoryStoragePropelQuery()
+            ->filterByFkProductAbstract_In($productAbstractIds)
+            ->find();
+
+        $existingEntitiesMap = [];
+
+        foreach ($entities as $entity) {
+            $existingEntitiesMap[$entity->getFkProductAbstract()][$entity->getStore()][$entity->getLocale()] = $entity;
+        }
+
+        return $existingEntitiesMap;
     }
 }

@@ -9,7 +9,6 @@ namespace Spryker\Zed\ProductCategoryStorage\Business\Writer;
 
 use ArrayObject;
 use Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer;
-use Generated\Shared\Transfer\ProductAbstractLocalizedAttributesTransfer;
 use Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductAbstractReaderInterface;
 use Spryker\Zed\ProductCategoryStorage\Business\Reader\ProductCategoryStorageReaderInterface;
 use Spryker\Zed\ProductCategoryStorage\Dependency\Facade\ProductCategoryStorageToStoreFacadeInterface;
@@ -150,75 +149,42 @@ class ProductCategoryStorageWriter implements ProductCategoryStorageWriterInterf
         string $storeName,
         string $localeName
     ): array {
+        $productAbstractCategoryStorageMap = [];
+
         foreach ($productAbstractLocalizedAttributesTransfers as $productAbstractLocalizedAttributesTransfer) {
             if ($productAbstractLocalizedAttributesTransfer->getLocaleOrFail()->getLocaleName() !== $localeName) {
                 continue;
             }
-            $productAbstractCategoryStorageTransfers = $this->saveProductAbstractCategoryStorage(
-                $productCategoryTransfers,
-                $productAbstractCategoryStorageTransfers,
-                $productAbstractLocalizedAttributesTransfer,
+
+            $idProductAbstract = $productAbstractLocalizedAttributesTransfer->getIdProductAbstractOrFail();
+            $productCategoryStorageTransfers = $this->productCategoryStorageReader->getProductCategoryStoragesFromCategoryTree(
+                $productCategoryTransfers[$idProductAbstract] ?? [],
                 $storeName,
                 $localeName,
             );
+
+            $existingStorageTransfer = $productAbstractCategoryStorageTransfers[$idProductAbstract][$storeName][$localeName] ?? null;
+
+            if ($existingStorageTransfer) {
+                unset($productAbstractCategoryStorageTransfers[$idProductAbstract][$storeName][$localeName]);
+            }
+
+            if (!$productCategoryStorageTransfers && $existingStorageTransfer) {
+                $this->productCategoryStorageEntityManager->deleteProductAbstractCategoryStorage($idProductAbstract, $storeName, $localeName);
+
+                continue;
+            }
+
+            if (!$productCategoryStorageTransfers) {
+                continue;
+            }
+
+            $productAbstractCategoryStorageMap[$idProductAbstract][$storeName][$localeName] = (new ProductAbstractCategoryStorageTransfer())
+                ->setCategories(new ArrayObject($productCategoryStorageTransfers))
+                ->setIdProductAbstract($idProductAbstract);
         }
 
-        return $productAbstractCategoryStorageTransfers;
-    }
-
-    /**
-     * @param array<array<\Generated\Shared\Transfer\ProductCategoryTransfer>> $productCategoryTransfers
-     * @param array<array<array<\Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer>>> $productAbstractCategoryStorageTransfers
-     * @param \Generated\Shared\Transfer\ProductAbstractLocalizedAttributesTransfer $productAbstractLocalizedAttributesTransfer
-     * @param string $storeName
-     * @param string $localeName
-     *
-     * @return array<array<array<\Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer>>>
-     */
-    protected function saveProductAbstractCategoryStorage(
-        array $productCategoryTransfers,
-        array $productAbstractCategoryStorageTransfers,
-        ProductAbstractLocalizedAttributesTransfer $productAbstractLocalizedAttributesTransfer,
-        string $storeName,
-        string $localeName
-    ): array {
-        $idProductAbstract = $productAbstractLocalizedAttributesTransfer->getIdProductAbstractOrFail();
-        $productCategoryStorageTransfers = $this->productCategoryStorageReader->getProductCategoryStoragesFromCategoryTree(
-            $productCategoryTransfers[$idProductAbstract] ?? [],
-            $storeName,
-            $localeName,
-        );
-
-        $productAbstractCategoryStorageTransfer
-            = $productAbstractCategoryStorageTransfers[$idProductAbstract][$storeName][$localeName]
-            ?? null;
-
-        if ($productAbstractCategoryStorageTransfer) {
-            unset($productAbstractCategoryStorageTransfers[$idProductAbstract][$storeName][$localeName]);
-        }
-
-        if (!count($productCategoryStorageTransfers) && $productAbstractCategoryStorageTransfer) {
-            $this->productCategoryStorageEntityManager->deleteProductAbstractCategoryStorage(
-                $idProductAbstract,
-                $storeName,
-                $localeName,
-            );
-        }
-
-        if (!count($productCategoryStorageTransfers)) {
-            return $productAbstractCategoryStorageTransfers;
-        }
-
-        $productAbstractCategoryStorageTransfer = (new ProductAbstractCategoryStorageTransfer())
-            ->setCategories((new ArrayObject($productCategoryStorageTransfers)))
-            ->setIdProductAbstract($idProductAbstract);
-
-        $this->productCategoryStorageEntityManager->saveProductAbstractCategoryStorage(
-            $idProductAbstract,
-            $storeName,
-            $localeName,
-            $productAbstractCategoryStorageTransfer,
-        );
+        $this->productCategoryStorageEntityManager->saveProductAbstractCategoryStorageCollection($productAbstractCategoryStorageMap);
 
         return $productAbstractCategoryStorageTransfers;
     }
