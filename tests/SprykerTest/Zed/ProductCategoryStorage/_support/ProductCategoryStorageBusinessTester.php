@@ -89,12 +89,10 @@ class ProductCategoryStorageBusinessTester extends Actor
     {
         $reflectedClass = new ReflectionClass(ProductCategoryStorageReader::class);
         $property = $reflectedClass->getProperty('categoryTree');
-        $property->setAccessible(true);
         $property->setValue(null);
 
         $reflection = new ReflectionClass(ProductCategoryStorageWriter::class);
         $property = $reflection->getProperty('storeNameToLocalesMap');
-        $property->setAccessible(true);
         $property->setValue([]);
     }
 

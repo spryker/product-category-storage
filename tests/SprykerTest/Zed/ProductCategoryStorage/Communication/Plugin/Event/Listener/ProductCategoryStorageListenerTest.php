@@ -292,7 +292,6 @@ class ProductCategoryStorageListenerTest extends Unit
     {
         $reflection = new ReflectionClass(ProductCategoryStorageReader::class);
         $property = $reflection->getProperty('categoryTree');
-        $property->setAccessible(true);
         $property->setValue(null);
     }
 }
