@@ -7,14 +7,19 @@
 
 namespace SprykerTest\Client\ProductCategoryStorage;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use Generated\Shared\DataBuilder\ProductCategoryStorageBuilder;
+use Generated\Shared\Transfer\ProductAbstractCategoryStorageTransfer;
 use Generated\Shared\Transfer\ProductCategoryStorageTransfer;
+use Generated\Shared\Transfer\ProductViewTransfer;
+use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Spryker\Client\ProductCategoryStorage\ProductCategoryStorageClient;
 use Spryker\Client\ProductCategoryStorage\ProductCategoryStorageClientInterface;
 use Spryker\Client\Storage\StorageDependencyProvider;
 use Spryker\Client\StorageRedis\Plugin\StorageRedisPlugin;
 use Spryker\Shared\Kernel\Transfer\Exception\NullValueException;
+use Spryker\Shared\ProductCategoryStorage\ProductCategoryStorageConfig;
 
 /**
  * Auto-generated group annotations
@@ -87,6 +92,22 @@ class ProductCategoryStorageClientTest extends Unit
      */
     protected const CATEGORY_ID_COMPUTER_NOTEBOOK = 6;
 
+    protected const int ID_PRODUCT_ABSTRACT_WITH_CATEGORIES = 2147483000;
+
+    protected const string LOCALE_NAME = 'de_DE';
+
+    protected const string STORE_NAME = 'DE';
+
+    protected const string CATEGORY_NAME_COMPUTER = 'Computer';
+
+    protected const string CATEGORY_NAME_NOTEBOOKS = 'Notebooks';
+
+    protected const string KEY_WITH_CATEGORIES = 'with categories';
+
+    protected const string KEY_WITHOUT_ABSTRACT_PRODUCT = 'without abstract product';
+
+    protected const string KEY_WITHOUT_CATEGORIES = 'without categories';
+
     /**
      * @var \SprykerTest\Client\ProductCategoryStorage\ProductCategoryStorageClientTester
      */
@@ -117,6 +138,37 @@ class ProductCategoryStorageClientTest extends Unit
 
         // Assert
         $this->assertCount(0, $productAbstractCategoryStorageTransfers);
+    }
+
+    public function testExpandProductViewTransfersWithCategoryPathSetsThePathOfEachProductViewAndKeepsTheKeys(): void
+    {
+        // Arrange
+        $storageKey = $this->generateProductAbstractCategoryStorageKey(static::ID_PRODUCT_ABSTRACT_WITH_CATEGORIES);
+        $this->tester->getLocator()->storage()->client()->set($storageKey, json_encode($this->createProductAbstractCategoryStorageData()));
+        $productViewTransfers = [
+            static::KEY_WITH_CATEGORIES => (new ProductViewTransfer())->setIdProductAbstract(static::ID_PRODUCT_ABSTRACT_WITH_CATEGORIES),
+            static::KEY_WITHOUT_ABSTRACT_PRODUCT => new ProductViewTransfer(),
+            static::KEY_WITHOUT_CATEGORIES => (new ProductViewTransfer())->setIdProductAbstract(static::INVALID_ID_PRODUCT_ABSTRACT),
+        ];
+
+        // Act
+        $productViewTransfers = $this->createProductCategoryStorageClient()->expandProductViewTransfersWithCategoryPath($productViewTransfers, static::LOCALE_NAME, static::STORE_NAME);
+
+        // Assert
+        $this->tester->getLocator()->storage()->client()->delete($storageKey);
+        $this->assertSame([static::KEY_WITH_CATEGORIES, static::KEY_WITHOUT_ABSTRACT_PRODUCT, static::KEY_WITHOUT_CATEGORIES], array_keys($productViewTransfers));
+        $this->assertSame([static::CATEGORY_NAME_COMPUTER, static::CATEGORY_NAME_NOTEBOOKS], $productViewTransfers[static::KEY_WITH_CATEGORIES]->getCategoryPath());
+        $this->assertSame([], $productViewTransfers[static::KEY_WITHOUT_ABSTRACT_PRODUCT]->getCategoryPath());
+        $this->assertSame([], $productViewTransfers[static::KEY_WITHOUT_CATEGORIES]->getCategoryPath());
+    }
+
+    public function testExpandProductViewTransfersWithCategoryPathReturnsEmptyArrayWithoutProductViews(): void
+    {
+        // Act
+        $productViewTransfers = $this->createProductCategoryStorageClient()->expandProductViewTransfersWithCategoryPath([], static::LOCALE_NAME, static::STORE_NAME);
+
+        // Assert
+        $this->assertSame([], $productViewTransfers);
     }
 
     public function testFilterProductCategoriesByHttpRefererThrowsExceptionWhenUrlIsMissing(): void
@@ -402,6 +454,38 @@ class ProductCategoryStorageClientTest extends Unit
     protected function createProductCategoryStorageClient(): ProductCategoryStorageClientInterface
     {
         return new ProductCategoryStorageClient();
+    }
+
+    protected function generateProductAbstractCategoryStorageKey(int $idProductAbstract): string
+    {
+        $synchronizationDataTransfer = (new SynchronizationDataTransfer())
+            ->setReference((string)$idProductAbstract)
+            ->setLocale(static::LOCALE_NAME)
+            ->setStore(static::STORE_NAME);
+
+        return $this->tester->getLocator()->synchronization()->service()
+            ->getStorageKeyBuilder(ProductCategoryStorageConfig::PRODUCT_ABSTRACT_CATEGORY_RESOURCE_NAME)
+            ->generateKey($synchronizationDataTransfer);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function createProductAbstractCategoryStorageData(): array
+    {
+        return (new ProductAbstractCategoryStorageTransfer())
+            ->setIdProductAbstract(static::ID_PRODUCT_ABSTRACT_WITH_CATEGORIES)
+            ->setCategories(new ArrayObject([
+                (new ProductCategoryStorageTransfer())
+                    ->setCategoryId(static::CATEGORY_ID_COMPUTER)
+                    ->setName(static::CATEGORY_NAME_COMPUTER)
+                    ->setParentCategoryIds([static::CATEGORY_ID_ROOT]),
+                (new ProductCategoryStorageTransfer())
+                    ->setCategoryId(static::CATEGORY_ID_COMPUTER_NOTEBOOK)
+                    ->setName(static::CATEGORY_NAME_NOTEBOOKS)
+                    ->setParentCategoryIds([static::CATEGORY_ID_COMPUTER, static::CATEGORY_ID_ROOT]),
+            ]))
+            ->toArray();
     }
 
     public function testFilterProductCategoriesByHttpRefererExcludesNonMatchingUrlsWithSpecialCharacters(): void

@@ -8,11 +8,16 @@
 namespace Spryker\Client\ProductCategoryStorage;
 
 use Spryker\Client\Kernel\AbstractFactory;
+use Spryker\Client\ProductCategoryStorage\Expander\CategoryPathExpander;
+use Spryker\Client\ProductCategoryStorage\Expander\CategoryPathExpanderInterface;
 use Spryker\Client\ProductCategoryStorage\Filter\ProductCategoryStorageFilter;
 use Spryker\Client\ProductCategoryStorage\Filter\ProductCategoryStorageFilterInterface;
+use Spryker\Client\ProductCategoryStorage\Reader\ProductAbstractCategoryPathReader;
+use Spryker\Client\ProductCategoryStorage\Reader\ProductAbstractCategoryPathReaderInterface;
 use Spryker\Client\ProductCategoryStorage\Sorter\ProductCategoryStorageSorter;
 use Spryker\Client\ProductCategoryStorage\Sorter\ProductCategoryStorageSorterInterface;
 use Spryker\Client\ProductCategoryStorage\Storage\ProductAbstractCategoryStorageReader;
+use Spryker\Service\Category\CategoryServiceInterface;
 
 class ProductCategoryStorageFactory extends AbstractFactory
 {
@@ -25,6 +30,19 @@ class ProductCategoryStorageFactory extends AbstractFactory
             $this->getStorage(),
             $this->getSynchronizationService(),
             $this->getProductAbstractCategoryStorageCollectionExpanderPlugins(),
+        );
+    }
+
+    public function createCategoryPathExpander(): CategoryPathExpanderInterface
+    {
+        return new CategoryPathExpander($this->createProductAbstractCategoryPathReader());
+    }
+
+    public function createProductAbstractCategoryPathReader(): ProductAbstractCategoryPathReaderInterface
+    {
+        return new ProductAbstractCategoryPathReader(
+            $this->createProductCategoryStorageReader(),
+            $this->getCategoryService(),
         );
     }
 
@@ -60,5 +78,10 @@ class ProductCategoryStorageFactory extends AbstractFactory
     public function getProductAbstractCategoryStorageCollectionExpanderPlugins(): array
     {
         return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::PLUGINS_PRODUCT_ABSTRACT_CATEGORY_STORAGE_COLLECTION_EXPANDER);
+    }
+
+    public function getCategoryService(): CategoryServiceInterface
+    {
+        return $this->getProvidedDependency(ProductCategoryStorageDependencyProvider::SERVICE_CATEGORY);
     }
 }

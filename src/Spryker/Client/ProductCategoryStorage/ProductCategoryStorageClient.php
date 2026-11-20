@@ -61,6 +61,22 @@ class ProductCategoryStorageClient extends AbstractClient implements ProductCate
      *
      * @api
      *
+     * @param array<\Generated\Shared\Transfer\ProductViewTransfer> $productViewTransfers
+     *
+     * @return array<\Generated\Shared\Transfer\ProductViewTransfer>
+     */
+    public function expandProductViewTransfersWithCategoryPath(array $productViewTransfers, string $localeName, string $storeName): array
+    {
+        return $this->getFactory()
+            ->createCategoryPathExpander()
+            ->expandProductViewTransfersWithCategoryPath($productViewTransfers, $localeName, $storeName);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
      * @param array<int, \Generated\Shared\Transfer\ProductCategoryStorageTransfer> $productCategoryStorageTransfers
      * @param string $httpReferer
      *
